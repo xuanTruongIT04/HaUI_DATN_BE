@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+}
+
+.sidebar .user-panel {
+    overflow: visible;
+}
+
+.sidebar .user-panel .nav-link {
+    padding: 0;
+    display: block;
+}
+
+.space-user {
+    margin-top: 104px;
+}
+
+.sidebar .user-panel img {
+    width: 38px;
+    height: 38px;
+    border-radius: 25%;
+}
+
+.sidebar .dropdown-menu {
+    max-width: 100%;
+}
+
+.sidebar .dropdown-menu .dropdown-item:hover {
+    color: #000;
+}
+
+.dropdown-menu-lg {
+    min-width: 240px;
+}
+
+.notifiExists {
+    display: inline-block;
+    margin-top: 16px;
+    color: orange;
+}
+
+.notifiLoading {
+    display: inline-block;
+    margin-top: 16px;
+    color: orange;
+}
+
+.list-image-upload-multi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.list-image-upload-multi .image-container {
+    position: relative;
+    margin: 15px 20px 15px 0;
+}
+
+.list-image-upload-multi img {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #000;
+    object-fit: cover;
+}
+
+.list-image-upload-multi .delete-icon {
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    background-color: #fac8c8;
+    border-radius: 59%;
+    padding: 0px 7px;
+    cursor: pointer;
+    color: #000;
+    font-weight: 550;
+}
+
+/* display card dasboard */
+
+#wrapper-blog-order .card-dasboard {
+    height: 160px !important;
+    font-size: 12px !important;
+    position: relative;
+}
+
+#wrapper-blog-order .card-dasboard .card-header-dasboard {
+    padding: 0.65rem 0.5rem !important;
+    text-align: center;
+    font-size: 17px;
+}
+
+#wrapper-blog-order .card-dasboard .card-header-dasboard a {
+    color: #fff;
+    transition: 0.25s all linear;
+}
+
+#wrapper-blog-order .card-dasboard .card-header-dasboard a:hover {
+    color: #000;
+}
+
+#wrapper-blog-order .card-body-dasboard {
+    padding: 0.5rem 0.5rem !important;
+}
+
+#wrapper-blog-order .card-title-dasboard {
+    position: absolute;
+    font-size: 34px !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper-blog-order .card-text-dasboard {
+    position: absolute;
+    bottom: 12px;
+    padding-left: 2px;
+    width: 100%;
+    font-weight: 500;
+}
+
+.max-width-13r {
+    min-width: 13rem !important;
+}
+
+.max-width-10r {
+    min-width: 10rem !important;
+}
+
+.individual-number {
+    font-size: 40px !important;
+}
+
+.pl-8 {
+    padding-left: 9px;
+}
+
+.pr-8 {
+    padding-right: 8px;
+}
+
+.fw-550 {
+    font-weight: 550 !important;
+}
+
+.text-total-sale {
+    font-size: 14px!important;
+    text-transform: uppercase;
+    margin-left: 12px;
+}
+
+#title-btn-add {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tox.tox-tinymce {
+    height: 400px !important;
+}
