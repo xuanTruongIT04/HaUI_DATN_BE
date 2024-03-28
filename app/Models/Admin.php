@@ -2,28 +2,19 @@
 
 namespace App\Models;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable implements JWTSubject
+class Admin extends Authenticatable implements MustVerifyEmail
 {
 
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
-    protected $guard = 'user';
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
 
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
+    protected $guard = 'admin';
     /**
      * The database table used by the model.
      *
@@ -34,14 +25,16 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'username',
-        'password',
+        'name',
         'email',
+        'avatar',
+        'address',
+        'password',
         'phone',
-        'fax',
+        'gender',
+        'role',
         'status',
     ];
 
@@ -64,21 +57,30 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeSearch($query, $keyword, $perPage = 20, $where = array())
+
+    public function scopeSearch($query, $keyword, $perPage = 20, $condition = "with", $where = array())
     {
+        if ($condition == "with") {
+            $query = $query->withTrashed();
+        } else if ($condition == "without") {
+            $query = $query->withoutTrashed();
+        } else {
+            $query = $query->onlyTrashed();
+        }
+
         if (!empty($where)) {
-            $query = $query->where('first_name', 'like', '%' . $keyword . '%')
+            $query = $query->where('name', 'like', '%' . $keyword . '%')
                 ->where($where)
+                ->orderBy('status')
+                ->orderByDesc('role')
                 ->orderByDesc('created_at');
         } else {
-            $query = $query->where('first_name', 'like', '%' . $keyword . '%')
+            $query = $query->where('name', 'like', '%' . $keyword . '%')
+                ->orderBy('status')
+                ->orderByDesc('role')
                 ->orderByDesc('created_at');
         }
         return $query;
-    }
 
-    public function setPasswordAttributes($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
     }
 }
