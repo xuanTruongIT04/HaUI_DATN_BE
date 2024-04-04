@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admins\AdminController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -87,4 +88,26 @@ Route::middleware('auth')->group(function () {
         return view('admin.dashboard');
     })->name("dashboard");
 
+
+    Route::prefix("admin")->controller(AdminController::class)->group(function () {
+        // ADMINS
+        Route::get("/editPassword/{id}", "editPassword")->name("admin.editPassword");
+        Route::post("/updatePassword/{id}", "updatePassword")->name("admin.updatePassword");
+        Route::get("/edit/{id}", "edit")->name("admin.edit");
+        Route::post("/update/{id}", "update")->name("admin.update");
+
+        Route::middleware("role:super")->group(function () {
+            Route::get("/", "list")->name("admin.list");
+            Route::get("/list", "list")->name("admin.list");
+
+            Route::get("/add", "add")->name("admin.add");
+            Route::post("/store", "store")->name("admin.store");
+
+            Route::get("/delete/{id}", "delete")->name("admin.delete");
+
+            Route::get("/restore/{id}", "restore")->name("admin.restore");
+
+            Route::get("/action", "action")->name("admin.action");
+        });
+    });
 });
