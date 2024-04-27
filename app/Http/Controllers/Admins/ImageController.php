@@ -44,7 +44,7 @@ class ImageController extends Controller
         // Handle action with constaint
         $images = $this->imageService->searchImages($keyWord, 20, $statusData, $where);
         $images->withQueryString();
-
+        
         $listCondition = array_keys(Constant::STATUS);
         // Get number record by status
         $countImagesSearch = $images->total();

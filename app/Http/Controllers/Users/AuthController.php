@@ -69,7 +69,7 @@ class AuthController extends Controller
         }
         $user = Auth::guard("user")->user();
         // Kiểm tra user tồn tại và trạng thái user
-        $statusUser = array_keys(Constant::STATUS_USER);
+        $statusUser = array_keys(CONSTANT::STATUS_USER);
         if (!$user || $user->status !== $statusUser[0]) {
             return response()->json([
                 'errors' => [
