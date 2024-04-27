@@ -13,9 +13,9 @@ return [
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
     |
-    */
+     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Lotus Thé'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     | running in. This may determine how you prefer to configure various
     | services the application utilizes. Set this in your ".env" file.
     |
-    */
+     */
 
     'env' => env('APP_ENV', 'production'),
 
@@ -39,7 +39,7 @@ return [
     | stack traces will be shown on every error that occurs within your
     | application. If disabled, a simple generic error page is shown.
     |
-    */
+     */
 
     'debug' => (bool) env('APP_DEBUG', false),
 
@@ -52,7 +52,7 @@ return [
     | the Artisan command line tool. You should set this to the root of
     | your application so that it is used when running Artisan tasks.
     |
-    */
+     */
 
     'url' => env('APP_URL', 'http://localhost'),
 
@@ -67,7 +67,7 @@ return [
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
     |
-    */
+     */
 
     'timezone' => 'UTC',
 
@@ -80,9 +80,9 @@ return [
     | by the translation service provider. You are free to set this value
     | to any of the locales which will be supported by the application.
     |
-    */
+     */
 
-    'locale' => 'en',
+    'locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,9 +93,9 @@ return [
     | is not available. You may change the value to correspond to any of
     | the language folders that are provided through your application.
     |
-    */
+     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     | data for your database seeds. For example, this will be used to get
     | localized telephone numbers, street address information and more.
     |
-    */
+     */
 
     'faker_locale' => 'en_US',
 
@@ -119,7 +119,7 @@ return [
     | to a random, 32 character string, otherwise these encrypted strings
     | will not be safe. Please do this before deploying an application!
     |
-    */
+     */
 
     'key' => env('APP_KEY'),
 
@@ -134,13 +134,13 @@ return [
     | request to your application. Feel free to add your own services to
     | this array to grant expanded functionality to your applications.
     |
-    */
+     */
 
     'providers' => [
 
-        /*
-         * Laravel Framework Service Providers...
-         */
+            /*
+             * Laravel Framework Service Providers...
+             */
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -163,20 +163,23 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+            /*
+             * Package Service Providers...
+             */
 
-        /*
-         * Package Service Providers...
-         */
-
-        /*
-         * Application Service Providers...
-         */
+            /*
+             * Application Service Providers...
+             */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+            // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\TelescopeServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Fruitcake\Cors\CorsServiceProvider::class,
     ],
 
     /*
@@ -188,10 +191,11 @@ return [
     | is started. However, feel free to register as many as you wish as
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
-    */
+     */
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];

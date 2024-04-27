@@ -11,11 +11,10 @@ return [
     | reset options for your application. You may change these defaults
     | as required, but they're a perfect start for most applications.
     |
-    */
-
+     */
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'admin',
+        'passwords' => 'admins',
     ],
 
     /*
@@ -28,16 +27,24 @@ return [
     | here which uses session storage and the Eloquent user provider.
     |
     | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
+    | admins are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | Supported: "session"
     |
-    */
+     */
 
     'guards' => [
-        'web' => [
+        'admin' => [
             'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'user' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+        'api' => [
+            'driver' => 'jwt',
             'provider' => 'users',
         ],
     ],
@@ -48,7 +55,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
+    | admins are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
     | If you have multiple user tables or models you may configure multiple
@@ -57,17 +64,21 @@ return [
     |
     | Supported: "database", "eloquent"
     |
-    */
+     */
 
     'providers' => [
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
+        // 'admins' => [
         //     'driver' => 'database',
-        //     'table' => 'users',
+        //     'table' => 'admins',
         // ],
     ],
 
@@ -84,11 +95,11 @@ return [
     | considered valid. This security feature keeps tokens short-lived so
     | they have less time to be guessed. You may change this as needed.
     |
-    */
+     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
@@ -104,8 +115,7 @@ return [
     | times out and the user is prompted to re-enter their password via the
     | confirmation screen. By default, the timeout lasts for three hours.
     |
-    */
+     */
 
     'password_timeout' => 10800,
-
 ];

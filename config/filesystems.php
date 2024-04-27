@@ -70,4 +70,8 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    'type_disks_upload' => env('TYPE_DISKS_UPLOAD', 'public'),
+
+    'disks_upload_path_avatar' => env('DISK_UPLOAD_PATH_AVATAR', 'uploads'),
+
 ];

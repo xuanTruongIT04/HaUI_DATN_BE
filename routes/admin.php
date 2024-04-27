@@ -268,7 +268,7 @@ Route::middleware('auth', 'role')->group(function () {
 
             Route::get("/action", "action")->name("tag.action");
         });
-        
+
         // PRODUCT TAG
         Route::prefix("product-tag")->controller(ProductTagController::class)->group(function () {
             Route::get("/", "list")->name("productTag.list");

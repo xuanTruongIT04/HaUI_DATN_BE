@@ -81,4 +81,14 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }
