@@ -73,7 +73,7 @@ class OrderSuccessEmail extends Mailable
 
         return $this->view('emails.confirm_success_order')
             ->from("nxt160602@gmail.com", "Lotus Thé")
-            ->subject("[SABUJCHA_SHOP] Thông báo đặt hàng thành công")
+            ->subject("[LOTUS_THE] Thông báo đặt hàng thành công")
             ->with([
                 'infoUser' => $infoUser,
                 'infoOrder' => $infoOrder,
