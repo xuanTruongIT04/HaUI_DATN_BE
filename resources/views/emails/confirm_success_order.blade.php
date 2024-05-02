@@ -171,7 +171,7 @@
                 </p>
             </div>
             <p>
-                <strong>SabujCha cảm ơn quý khách đã đặt hàng, chúng tôi sẽ không ngừng nổ lực để phục vụ quý khách tốt
+                <strong>Lotus THÉ cảm ơn quý khách đã đặt hàng, chúng tôi sẽ không ngừng nổ lực để phục vụ quý khách tốt
                     hơn!</strong>
             </p>
         </div>

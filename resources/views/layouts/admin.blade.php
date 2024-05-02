@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Sabujcha</title>
+    <title>Admin Lotus Thé</title>
     {{-- Icon --}}
     <link rel="shortcut icon" type="image/png"
         href="https://bizweb.dktcdn.net/100/461/240/themes/870680/assets/icon_why_2.png?1666679797652" />
@@ -75,7 +75,7 @@
             <a href="{{ url()->route('dashboard') }}" class="brand-link">
                 <img src="{{ url('/rsrc') }}/dist/img/AdminSabujchaLogo.png" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Sabujcha Admin</span>
+                <span class="brand-text font-weight-light">Lotus Thé Admin</span>
             </a>
 
             <!-- Sidebar -->
@@ -484,7 +484,7 @@
         <footer class="main-footer">
             <span class="title-brand">
                 <i class="fas fa-mug-hot"></i>
-                <strong>Sabujcha Tea</strong>
+                <strong>Lotus Thé</strong>
                 <i>- Connecting people and nature, elevating the essence of Vietnamese tea.</i>
             </span>
 
@@ -589,7 +589,7 @@
                 "progressBar": true,
                 "closeButton": true,
             }
-            toastr.info("Xin chào đã đến với Sabujcha Admin Shop, hân hạnh!", "Welcome!", {
+            toastr.info("Xin chào đã đến với Lotus Thé Admin Shop, hân hạnh!", "Welcome!", {
                 timeOut: 4000
             });
         </script>
