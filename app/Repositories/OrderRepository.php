@@ -98,7 +98,12 @@ class OrderRepository extends BaseRepository
                 $statusOrder = array_keys(Constant::STATUS_ORDER);
                 $statusOrderNow = $statusOrder[1];
 
-                //ERROR HERE
+                // CHECK PAYMENT METHOD
+                if($data['payment_method'] == array_keys(Constant::PAYMENT_METHOD)[1]) {
+                    $statusOrderNow = $statusOrder[2];
+                    info($statusOrderNow);
+                }
+
                 $order = $cart->orders()->orderByDesc("id")->first();
                 if ($order) {
                     // UPDATE ORDER
@@ -116,10 +121,18 @@ class OrderRepository extends BaseRepository
                     } else {
                         $statusOrder = $order->update($dataUpdateOrder);
                         if ($statusOrder) {
+                            $statusBill = number_format(array_keys(Constant::STATUS_BILL)[0]);
+
+                            if($statusOrderNow == number_format(array_keys(Constant::STATUS_ORDER)[2])) {
+                                $statusBill = array_keys(Constant::STATUS_BILL)[1];
+                            }
+
                             $dataCreateBill = [
                                 'order_id' => $order->id,
-                                'user_id' => $idUser
+                                'user_id' => $idUser,
+                                'status' => $statusBill
                             ];
+
                             // Check if the order_id exists in the orders table before creating a new bill
                             $existingOrder = $this->model::find($order->id);
                             if (!$existingOrder) {
@@ -129,7 +142,7 @@ class OrderRepository extends BaseRepository
                             // Create a new bill
                             $idBill = $this->modelBill::create($dataCreateBill)->id;
 
-                            // Update status card   
+                            // Update status card
                             if ($cart) {
                                 $statusOrder = array_keys(Constant::STATUS_ORDER);
                                 $dataUpdateOrder = [

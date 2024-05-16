@@ -36,7 +36,7 @@ class Order extends Model
     public function generateUniqueCode()
     {
         $code = Uuid::uuid4()->toString();
-        $this->code = '#CSC-' . $code;
+        $this->code = '#Lotus-' . $code;
     }
 
     public function generateCode()

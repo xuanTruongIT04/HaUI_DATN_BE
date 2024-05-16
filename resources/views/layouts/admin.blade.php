@@ -73,7 +73,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ url()->route('dashboard') }}" class="brand-link">
-                <img src="{{ url('/rsrc') }}/dist/img/AdminSabujchaLogo.png" alt="AdminLTE Logo"
+                <img src="{{ url('/rsrc') }}/dist/img/AdminLotusLogo.jpg" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Lotus Thé Admin</span>
             </a>

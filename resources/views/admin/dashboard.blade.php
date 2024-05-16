@@ -129,7 +129,7 @@
             </div>
         @else
             <tr>
-                <td colspan="7" class="bg-white">Không tìm thấy thẻ nào!</td>
+                <td colspan="7" class="bg-white">Không tìm thấy đơn hàng nào!</td>
             </tr>
             @endif
         </div>

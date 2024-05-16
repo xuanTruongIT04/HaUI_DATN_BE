@@ -45,7 +45,7 @@ class UserController extends Controller
                 $id = Auth::guard("user")->id();
                 $user = $this->userService->checkInfor($id);
                 if ($user)
-                    return $this->sendSuccessResponse(["info" => true]);
+                    return $this->sendSuccessResponse(["info" => $user]);
                 else
                     return $this->sendSuccessResponse(["info" => false]);
             } else {

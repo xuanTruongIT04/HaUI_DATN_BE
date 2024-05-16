@@ -106,9 +106,8 @@ class Constant
     ];
 
     const PAYMENT_METHOD = [
-        '0' => 'Thanh toán bằng tiền mặt',
-        // Cash
-        '1' => 'Thanh toán bằng mã QR', // QR
+        '0' => 'Thanh toán bằng tiền mặt',        // Cash
+        '1' => 'Thanh toán bằng chuyển khoản',    // QR
     ];
 
     const ROLE_ADMIN = [
