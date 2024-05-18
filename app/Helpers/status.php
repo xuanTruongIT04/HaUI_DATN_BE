@@ -189,6 +189,21 @@ if (!function_exists('showOrderStatus')) {
         $str = "<select class='form-control' name='status' id='status'>";
         $data = Constant::STATUS_ORDER;
 
+        switch ($status) {
+            case "0":
+                unset($data["2"]);
+                break;
+            case "1":
+                unset($data["0"], $data["3"]);
+                break;
+            case "2":
+                unset($data["0"], $data["1"], $data["3"]);
+                break;
+            case "3":
+                unset($data["0"], $data["1"], $data["2"]);
+                break;
+        }
+
         foreach ($data as $item => $ele) {
             $sel = "";
             if ($status == $item) {
