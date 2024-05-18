@@ -125,4 +125,6 @@ class Constant
 
     const EXPIRY_DAY_NUMBER = 20;
 
+    const QTY_NEED_MORE = 30;
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
 use App\Models\Product;
 use App\Helpers\Constant;
+use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
@@ -91,6 +92,11 @@ class ProductService
         return $this->productRepository->countProductExpireds();
     }
 
+    public function countProductNeedMore()
+    {
+        return $this->productRepository->countProductNeedMore();
+    }
+
     public function constraintAction(Request $request)
     {
         // Update records
@@ -121,7 +127,11 @@ class ProductService
             $statusData = "only";
         } else if($status == "aboutToExpire") {
             $where[] = ['expiry_date', '<=', $expiryDate];
+        } else if ($status == "productNeedMore") {
+            $qtyNeedMore = Constant::QTY_NEED_MORE;
+            $where[] = ['qty_import', '<=', DB::raw("qty_sold + $qtyNeedMore")];
         }
+
         $data = [
             "where" => $where,
             "status" => $status,

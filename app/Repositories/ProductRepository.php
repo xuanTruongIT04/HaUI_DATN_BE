@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Helpers\Constant;
 use App\Models\Image;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository
 {
@@ -133,6 +134,11 @@ class ProductRepository extends BaseRepository
         $expiryDayNumber = Constant::EXPIRY_DAY_NUMBER;
         $expiryDate =  \Carbon\Carbon::now()->addDays($expiryDayNumber);
         return $this->model::where("expiry_date", "<=", $expiryDate)->count();
+    }
+
+    public function countProductNeedMore() {
+        $qtyNeedMore = Constant::QTY_NEED_MORE;
+        return $this->model::where("qty_import", "<=", DB::raw("qty_sold + $qtyNeedMore"))->count();
     }
 
     public function filterProducts($filters)

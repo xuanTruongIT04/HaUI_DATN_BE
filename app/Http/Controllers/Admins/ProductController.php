@@ -50,6 +50,7 @@ class ProductController extends Controller
         // Handle action with constaint
         $products = $this->productService->searchProducts($keyWord, 20, $statusData, $where);
         $cntProductAboutToExpiry = $this->productService->countProductExpireds();
+        $cntProductNeedMore = $this->productService->countProductNeedMore();
         $products->withQueryString();
 
         $listCondition = array_keys(Constant::STATUS);
@@ -60,9 +61,9 @@ class ProductController extends Controller
         $cntProductPending = $this->productService->countProducts("without", $listCondition[1]);
         $cntProductTrashed = $this->productService->countProducts("only");
         // Merge to array count status
-        $countProductStatus = [$cntProductActive, $cntProductLicensed, $cntProductPending, $cntProductTrashed];
+        $countProductStatus = [$cntProductActive, $cntProductLicensed, $cntProductPending, $cntProductTrashed, $cntProductTrashed];
 
-        return view("product.list", compact('products', "countProductStatus", "listAct", "countProducts", "countProductsSearch", "cntProductAboutToExpiry"));
+        return view("product.list", compact('products', "countProductStatus", "listAct", "countProducts", "countProductsSearch", "cntProductAboutToExpiry", "cntProductNeedMore"));
     }
 
     public function add()
