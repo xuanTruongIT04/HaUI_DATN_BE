@@ -183,6 +183,28 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="row">
+                                        <!-- Ngày sản xuất -->
+                                        <div class="form-group col-5">
+                                            <label for="date-of-manufacture" class="fw-550">Ngày sản xuất</label>
+                                            <input type="datetime-local" class="form-control" name="date_of_manufacture" id="date-of-manufacture" value="{{  $product->date_of_manufacture ? date('Y-m-d\TH:i', strtotime($product->date_of_manufacture)) : Old('date_of_manufacture') }}">
+                                            @error('date_of_manufacture')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+
+                                        <!-- Ngày hết hạn -->
+                                        <div class="form-group col-5">
+                                            <label for="expiry-date" class="fw-550">Ngày hết hạn</label>
+                                            <input type="datetime-local" class="form-control" name="expiry_date" id="expiry-date" value="{{  $product->expiry_date ? date('Y-m-d\TH:i', strtotime($product->expiry_date)) : Old('expiry_date') }}">
+                                            @error('expiry_date')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group p-0">
                                         <label for="status" class="fw-550">Trạng thái</i></label>
                                         @php
@@ -193,7 +215,6 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-
 
                                     <input type="submit" name="btn_update" class="btn btn-primary mt-3"
                                         value="Cập nhật">

@@ -35,6 +35,12 @@ class StoreProductRequest extends FormRequest
             'description' => ['nullable'],
             'detail' => ['required'],
             'rate' => ['nullable', 'numeric', 'min:0'],
+            'date_of_manufacture' => ['required', 'date_format:Y-m-d\TH:i'],
+            'expiry_date' => [
+                'required',
+                'date_format:Y-m-d\TH:i',
+                'after:date_of_manufacture',
+            ],
         ];
     }
 
@@ -55,7 +61,8 @@ class StoreProductRequest extends FormRequest
                 "string" => ":attribute không được ít hơn :min kí tự.",
                 "array" => ":attribute phải có ít nhất :min mục.",
             ],
-
+            "date_format" => ":attribute phải có định dạng ngày và giờ là Y-m-d\TH:i.",
+            "after" => ":attribute phải sau :date.",
         ];
     }
 
@@ -73,6 +80,8 @@ class StoreProductRequest extends FormRequest
             'description' => "Mô tả sản phẩm",
             'detail' => "Chi tiết sản phẩm",
             'rate' => "Điểm đánh giá sản phẩm",
+            'date_of_manufacture' => "Ngày sản xuất sản phẩm",
+            'expiry_date' => "Ngày hết hạn sản phẩm",
         ];
     }
 }

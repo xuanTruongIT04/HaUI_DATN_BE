@@ -129,6 +129,12 @@ class ProductRepository extends BaseRepository
 
     }
 
+    public function countProductExpireds() {
+        $expiryDayNumber = Constant::EXPIRY_DAY_NUMBER;
+        $expiryDate =  \Carbon\Carbon::now()->addDays($expiryDayNumber);
+        return $this->model::where("expiry_date", "<=", $expiryDate)->count();
+    }
+
     public function filterProducts($filters)
     {
         $query = $this->model::query();

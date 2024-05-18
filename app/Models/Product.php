@@ -27,6 +27,8 @@ class Product extends Model
         'brand_id',
         'slug',
         'status',
+        'date_of_manufacturer',
+        'expiry_date'
     ];
 
     public function scopeSearch($query, $keyword, $perPage = 20, $status = "with", $where = [])
@@ -43,6 +45,9 @@ class Product extends Model
             $query = $query->where('name', 'like', '%' . $keyword . '%')
                 ->where($where)
                 ->orderBy('status')
+                ->when(array_key_exists('aboutToExpire', $where), function ($query) {
+                    return $query->orderBy('expiry_date');
+                })
                 ->orderByDesc('created_at');
         } else {
             $query = $query->where('name', 'like', '%' . $keyword . '%')
@@ -130,5 +135,4 @@ class Product extends Model
     {
         return $this->hasMany(Favorite::class);
     }
-
 }

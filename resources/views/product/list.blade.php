@@ -35,6 +35,7 @@
                         <span class="text-muted">({{ $countProductStatus[2] }})</span></a>
                     <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Vô hiệu
                         hoá<span class="text-muted">({{ $countProductStatus[3] }})</span></a>
+                    <a href="{{ request()->fullUrlWithQuery(['status' => 'aboutToExpire']) }}" class="text-danger">Sản phẩm sắp hết hạn<span class="text-muted">({{ $cntProductAboutToExpiry }})</span></a>
                 </div>
                 <form action="{{ url('product/action') }}" method="GET">
                     <div class="form-action form-inline py-3">

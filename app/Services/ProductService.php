@@ -86,6 +86,11 @@ class ProductService
         return $this->productRepository->countProducts($condition, $status);
     }
 
+    public function countProductExpireds()
+    {
+        return $this->productRepository->countProductExpireds();
+    }
+
     public function constraintAction(Request $request)
     {
         // Update records
@@ -96,28 +101,26 @@ class ProductService
         $status = !empty(request()->input('status')) ? $request->input('status') : 'active';
         // Khai báo biến điều kiện => lọc theo trạng thái
         $where = array();
+        $statusData = "without";
+        $expiryDayNumber = Constant::EXPIRY_DAY_NUMBER;
+        $expiryDate =  \Carbon\Carbon::now()->addDays($expiryDayNumber);
         if ($status == "active") {
-
             // All record without trashed
             unset($listAct['RESTORE'], $listAct['DELETE_PERMANENTLY']);
-            $statusData = "without";
         } else if ($status == "licensed") {
-
             // All record without trashed and status = licened
             unset($listAct['LICENSED'], $listAct['RESTORE'], $listAct['DELETE_PERMANENTLY']);
             $where['status'] = $listStatus[0];
-            $statusData = "without";
         } else if ($status == "pending") {
-
             // All record without trashed and status = pending
             unset($listAct['PENDING'], $listAct['RESTORE'], $listAct['DELETE_PERMANENTLY']);
             $where['status'] = $listStatus[1];
-            $statusData = "without";
         } else if ($status == "trashed") {
-
             // All record in trashed
             unset($listAct['LICENSED'], $listAct['PENDING'], $listAct['DELETE']);
             $statusData = "only";
+        } else if($status == "aboutToExpire") {
+            $where[] = ['expiry_date', '<=', $expiryDate];
         }
         $data = [
             "where" => $where,

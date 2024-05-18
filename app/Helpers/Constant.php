@@ -117,4 +117,6 @@ class Constant
         "super" => "Super admin"
     ];
 
+    const EXPIRY_DAY_NUMBER = 20;
+
 }
