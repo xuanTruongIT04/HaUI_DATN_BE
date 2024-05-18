@@ -99,6 +99,12 @@ class Constant
         '1' => 1,
     ];
 
+    const STATUS_PRODUCT = [
+        '0' => 0,
+        '1' => 1,
+        '2' => 2,
+    ];
+
     const LEVEL_IMAGE = [
         '0' => 0,
         // Main
