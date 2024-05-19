@@ -10,6 +10,7 @@ use App\Http\Requests\Admins\Product\EditImageproductRequest;
 use App\Models\Product;
 use App\Services\ImageService;
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -89,6 +90,16 @@ class ProductController extends Controller
                     }
                 }
             }
+        }
+
+        if (!empty($request->input("export_excel")) && !empty($orderInDays)) {
+            $response = $this->productService->exportExcel($orderInDays);
+            if($response->getStatusCode() >= 200 && $response->getStatusCode() <= 299) {
+                Session::flash('statusSuccess', 'Xuất file excel thành công!');
+            }
+        } else if(empty($orderInDays)) {
+            Session::flash('statusFail', 'Xuất file excel thất bại, không tồn tại đơn hàng nào ');
+
         }
 
 

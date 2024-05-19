@@ -16,6 +16,7 @@
         "laravel/telescope": "^4.15",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "maatwebsite/excel": "^3.1",
         "predis/predis": "*",
         "ramsey/uuid": "^4.7",
         "tymon/jwt-auth": "^2.0",

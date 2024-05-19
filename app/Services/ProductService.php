@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Exports\OrdersExport;
 use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
 use App\Models\Product;
 use App\Helpers\Constant;
 use App\Repositories\OrderRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductService
 {
@@ -122,7 +125,7 @@ class ProductService
         $where = array();
         $statusData = "without";
         $expiryDayNumber = Constant::EXPIRY_DAY_NUMBER;
-        $expiryDate =  \Carbon\Carbon::now()->addDays($expiryDayNumber);
+        $expiryDate =  Carbon::now()->addDays($expiryDayNumber);
         if ($status == "active") {
             // All record without trashed
             unset($listAct['RESTORE'], $listAct['DELETE_PERMANENTLY']);
@@ -214,6 +217,12 @@ class ProductService
     public function filterProducts($filters)
     {
         return $this->productRepository->filterProducts($filters);
+    }
+
+    public function exportExcel($orders) {
+        $filename = 'orders_' . Carbon::now()->format('Y-m-d_H-i-s') . '.xlsx';
+        // dd(Excel::download(new OrdersExport($orders), $filename));
+        return Excel::download(new OrdersExport($orders), $filename);
     }
 
 

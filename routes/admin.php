@@ -24,6 +24,7 @@ use App\Http\Controllers\Admins\UserController;
 use App\Http\Controllers\Admins\OrderController;
 use App\Http\Controllers\Admins\CartController;
 use App\Http\Controllers\Admins\BillController;
+use App\Http\Controllers\Admins\ExcelController;
 
 // Controller
 /*
@@ -287,7 +288,6 @@ Route::middleware('auth', 'role')->group(function () {
             Route::get("/restore/{id}", "restore")->name("productTag.restore");
 
             Route::get("/action", "action")->name("productTag.action");
-
         });
     });
 
@@ -366,4 +366,8 @@ Route::middleware('auth', 'role')->group(function () {
         });
     });
 
+    // COLOR
+    Route::prefix("export")->controller(ExcelController::class)->group(function () {
+        Route::get("/order-list", "exportOrders")->name("export.order");
+    });
 });

@@ -13,6 +13,15 @@
                 <div id="title-btn-add">
                     <h5 class="m-0 ">Theo dõi sản phẩm bán ra</h5>
                 </div>
+                <div class="form-search form-inline">
+                    <form method="GET">
+                        @csrf
+                        <input type="hidden" name="export_excel" value="1">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-file-excel mr-1"></i> Export Excel
+                        </button>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <form method="GET">

@@ -64,7 +64,7 @@ class Constant
     ];
 
     const STATUS_ORDER = [
-        '0' => 'Đã đặt hàng',
+        '0' => ' ',
         '1' => 'Đang xử lý',
         '2' => 'Đã thanh toán',
         '3' => 'Đã huỷ',
