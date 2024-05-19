@@ -249,6 +249,12 @@
                                             <p>Danh sách</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url()->route('product.track.product.sold') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Theo dõi SP bán ra</p>
+                                        </a>
+                                    </li>
 
                                 </ul>
                             </li>

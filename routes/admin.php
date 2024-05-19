@@ -201,6 +201,8 @@ Route::middleware('auth', 'role')->group(function () {
             Route::get("/", "list")->name("product.list");
             Route::get("/list", "list")->name("product.list");
 
+            Route::get("/track-product-sold", "trackProductSold")->name("product.track.product.sold");
+
             Route::get("/add", "add")->name("product.add");
             Route::post("/store", "store")->name("product.store");
 

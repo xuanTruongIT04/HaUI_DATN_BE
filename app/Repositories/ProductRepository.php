@@ -57,6 +57,19 @@ class ProductRepository extends BaseRepository
             ->get();
     }
 
+    public function getProductSellInDay()
+    {
+        // $status = array_keys(Constant::STATUS);
+        // $products = $this->model::selectRaw("`products`.*, '' as `detail`")->with([
+        //     'images' => function ($query) use ($status) {
+        //         $query->where("status", $status[0])->where('level', Constant::LEVEL_IMAGE[0]);
+        //     },
+        //     'favorites'
+        // ])->where("status", $status[0])->orderByDesc("id")->get();
+
+        // return $products;
+    }
+
     public function getAllLatest()
     {
         $status = array_keys(Constant::STATUS);

@@ -6,20 +6,33 @@ use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
 use App\Models\Product;
 use App\Helpers\Constant;
+use App\Repositories\OrderRepository;
 use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
     protected $productRepository;
+    protected $orderRepository;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, OrderRepository $orderRepository)
     {
         $this->productRepository = $productRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     public function all()
     {
         return $this->productRepository->getAll();
+    }
+
+    public function getProductSellInDay()
+    {
+        return $this->orderRepository->getListProductSellInDay();
+    }
+
+    public function getProductByDate($startDate, $endDate)
+    {
+        return $this->orderRepository->getProductByDate($startDate, $endDate);
     }
 
     public function getAllLatest()

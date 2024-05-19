@@ -14,7 +14,7 @@ use App\Models\Order;
 use App\Models\Bill;
 use App\Models\Cart;
 use App\Models\User;
-
+use Carbon\Carbon;
 use Exception;
 
 class OrderRepository extends BaseRepository
@@ -22,9 +22,14 @@ class OrderRepository extends BaseRepository
     protected $model, $modelCart, $modelCoupon, $modelBill, $modelDetailCart, $modeProduct, $modelDetailOrder, $modelUser;
 
     public function __construct(
-        Order $model, Cart $modelCart, Coupon $modelCoupon, Bill $modelBill,
-        DetailCart $modelDetailCart, Product $modeProduct,
-        DetailOrder $modelDetailOrder, User $modelUser
+        Order $model,
+        Cart $modelCart,
+        Coupon $modelCoupon,
+        Bill $modelBill,
+        DetailCart $modelDetailCart,
+        Product $modeProduct,
+        DetailOrder $modelDetailOrder,
+        User $modelUser
     ) {
         $this->modelCart = $modelCart;
         $this->modelBill = $modelBill;
@@ -76,6 +81,37 @@ class OrderRepository extends BaseRepository
         return $this->model::where("cart_id", $cartId)->where("status", $statusOrder[0])->latest()->first();
     }
 
+    public function getListProductSellInDay()
+    {
+        $today = \Carbon\Carbon::now();
+        $statusOrder = array_keys(Constant::STATUS_ORDER);
+        $listStatusAble = [$statusOrder["1"], $statusOrder["2"]];
+
+        // $listStatusAble = [$statusOrder["0"]];
+
+        return $this->model::with(["detailOrders.product"])
+            ->whereDate("order_date", $today)
+            ->whereIn("status", $listStatusAble)
+            ->orderBy("status")
+            ->get();
+    }
+
+    public function getProductByDate($startDate, $endDate)
+    {
+        $statusOrder = array_keys(Constant::STATUS_ORDER);
+        $listStatusAble = [$statusOrder["1"], $statusOrder["2"]];
+
+        $startDateCompare = Carbon::parse($startDate)->startOfDay();
+        $endDateCompare = Carbon::parse($endDate)->endOfDay();
+
+        return $this->model::with(["detailOrders.product"])
+            ->where("order_date", ">=",  $startDateCompare)
+            ->where("order_date", "<=",  $endDateCompare)
+            ->whereIn("status", $listStatusAble)
+            ->orderBy("status")
+            ->get();
+    }
+
     public function getDetailOrder($id)
     {
         return $this->modelDetailOrder::where("order_id", $id)->get();
@@ -99,7 +135,7 @@ class OrderRepository extends BaseRepository
                 $statusOrderNow = $statusOrder[1];
 
                 // CHECK PAYMENT METHOD
-                if($data['payment_method'] == array_keys(Constant::PAYMENT_METHOD)[1]) {
+                if ($data['payment_method'] == array_keys(Constant::PAYMENT_METHOD)[1]) {
                     $statusOrderNow = $statusOrder[2];
                     info($statusOrderNow);
                 }
@@ -123,7 +159,7 @@ class OrderRepository extends BaseRepository
                         if ($statusOrder) {
                             $statusBill = number_format(array_keys(Constant::STATUS_BILL)[0]);
 
-                            if($statusOrderNow == number_format(array_keys(Constant::STATUS_ORDER)[2])) {
+                            if ($statusOrderNow == number_format(array_keys(Constant::STATUS_ORDER)[2])) {
                                 $statusBill = array_keys(Constant::STATUS_BILL)[1];
                             }
 

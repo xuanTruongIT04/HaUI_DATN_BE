@@ -66,6 +66,38 @@ class ProductController extends Controller
         return view("product.list", compact('products', "countProductStatus", "listAct", "countProducts", "countProductsSearch", "cntProductAboutToExpiry", "cntProductNeedMore"));
     }
 
+    function trackProductSold(Request $request)
+    {
+        $orderInDays = $this->productService->getProductSellInDay();
+
+        if ($request->input("start_date") && $request->input("end_date")) {
+            $startDate = $request->input("start_date");
+            $endDate = $request->input("end_date");
+            $orderInDays = $this->productService->getProductByDate($startDate, $endDate);
+        }
+
+        $countProducts = 0;
+        if (!empty($orderInDays)) {
+            foreach ($orderInDays as $itemOrderInDays) {
+                $detailOrder = $itemOrderInDays?->detailOrders;
+                if (!empty($detailOrder)) {
+                    foreach ($detailOrder as $itemDetailOrder) {
+                        $product = $itemDetailOrder?->product;
+                        if (!empty($product)) {
+                            $countProducts++;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // Handle action with constaint
+        $cntProductAboutToExpiry = $this->productService->countProductExpireds();
+        $cntProductNeedMore = $this->productService->countProductNeedMore();
+        return view("product.trackProductSold", compact('orderInDays', "countProducts", "cntProductAboutToExpiry", "cntProductNeedMore"));
+    }
+
     public function add()
     {
         return view('product.add');
@@ -206,5 +238,4 @@ class ProductController extends Controller
     {
         return $this->productService->action($requests);
     }
-
 }
