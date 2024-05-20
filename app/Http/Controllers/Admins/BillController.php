@@ -84,7 +84,6 @@ class BillController extends Controller
     public function detailUpdate(EditBillRequest $requests, $id)
     {
         $billCode = $this->billService->find($id)->order->code;
-        dd($requests->input("status"));
         $dataUpdateBill = [
             'status' => $requests->input("status")
         ];

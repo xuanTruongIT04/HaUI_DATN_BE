@@ -14,11 +14,13 @@
                     <h5 class="m-0 ">Theo dõi sản phẩm bán ra</h5>
                 </div>
                 <div class="form-search form-inline">
-                    <form method="GET">
+                    <form method="POST" action="/export/order-list/">
                         @csrf
-                        <input type="hidden" name="export_excel" value="1">
+                        <input type="hidden" id="start-date" name="start_date" class="form-control" value="{{ request('start_date') ?? request('start_date') }}">
+                        <input type="hidden" id="end-date" name="end_date" class="form-control" value="{{ request('end_date') ?? request('end_date')  }}">
+
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-file-excel mr-1"></i> Export Excel
+                            <i class="fas fa-file-excel mr-1"></i> Xuất danh sách đơn hàng
                         </button>
                     </form>
                 </div>
@@ -67,13 +69,13 @@
                                 @endphp
                                 @foreach ($orderInDays as $orderInDay)
                                     @php
-                                        $cnt++;
-                                    @endphp
-                                    @php
                                         $detailOrders = $orderInDay?->detailOrders;
-                                    @endphp
+                                        @endphp
                                     @if (count($detailOrders) > 0)
                                         @foreach ($detailOrders as $detailOrder)
+                                        @php
+                                            $cnt++;
+                                        @endphp
                                             <tr class="row-in-list">
                                                 <th scope=" row">{{ $cnt }}</th>
                                                 <td>
@@ -97,7 +99,7 @@
 
                                                 </td>
                                                 <td><a class="text-primary"
-                                                        href="{{ route('order.edit', $orderInDay->id) }}">{{ brief_code($orderInDay->code, 12) }}</a>
+                                                        href="{{ route('order.edit', $orderInDay->id) }}">{{ brief_code($orderInDay->code, 20) }}</a>
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('user.edit', $orderInDay->cart->user->id) }}"
@@ -108,35 +110,21 @@
                                                 <td>{!! fieldStatusOrder($orderInDay->status) !!}</td>
                                                 @if (request()->status != 'trashed')
                                                     <td>
-                                                        <a href="{{ route('product.edit', $orderInDay->id) }}"
+                                                        <a href="{{ route('order.edit', $orderInDay->id) }}"
                                                             title="Sửa"
                                                             class="btn btn-success btn-sm rounded-0 text-white"
                                                             type="button" data-toggle="tooltip" data-placement="top"
                                                             name="Edit"><i class="fa fa-edit"></i></a>
-                                                        <a href="{{ route('product.delete', $orderInDay->id) }}"
-                                                            title="Xoá"
-                                                            class="btn btn-danger btn-sm rounded-0 text-white"
-                                                            type="button" data-toggle="tooltip"
-                                                            onclick="return confirm('Bạn có chắc chắn muốn xoá tạm thời sản phẩm {{ $orderInDay->name }}?')"
-                                                            data-placement="top" name="Delete"><i
-                                                                class="fa fa-trash"></i></a>
                                                     </td>
                                                 @else
                                                     <td>
-                                                        <a href="{{ route('product.restore', $orderInDay->id) }}"
+                                                        <a href="{{ route('order.restore', $orderInDay->id) }}"
                                                             title="Sửa"
                                                             class="btn btn-success btn-sm rounded-0 text-white"
                                                             type="button" data-toggle="tooltip"
                                                             onclick="return confirm('Bạn có chắc chắn muốn khôi phục sản phẩm {{ $orderInDay->name }}?')"
                                                             data-placement="top" name="Restore"><i
                                                                 class="fas fa-trash-restore-alt"></i></a>
-                                                        <a href="{{ route('product.delete', $orderInDay->id) }}"
-                                                            title="Xoá"
-                                                            class="btn btn-danger btn-sm rounded-0 text-white"
-                                                            type="button" data-toggle="tooltip"
-                                                            onclick="return confirm('Bạn có chắc chắn muốn xoá vĩnh viễn sản phẩm {{ $orderInDay->name }}?')"
-                                                            data-placement="top" name="Delete"><i
-                                                                class="fa fa-trash"></i></a>
                                                     </td>
                                                 @endif
                                             </tr>

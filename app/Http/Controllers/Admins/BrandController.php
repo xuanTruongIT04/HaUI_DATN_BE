@@ -90,7 +90,6 @@ class BrandController extends Controller
         // Update brand other
         $brandName = $this->brandService->find($id)->name;
         if ($status == $listCondition[2]) {
-            // dd($status);
             $this->brandService->delete($id);
         }
         return redirect("brand/list")->with('statusSuccess', "Bạn đã cập nhật thông tin nhãn hiệu tên '$brandName' thành công!");

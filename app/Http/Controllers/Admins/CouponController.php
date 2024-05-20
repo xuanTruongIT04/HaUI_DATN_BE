@@ -90,7 +90,6 @@ class CouponController extends Controller
         // Update coupon other
         $couponName = $this->couponService->find($id)->name;
         if ($status == $listCondition[2]) {
-            // dd($status);
             $this->couponService->delete($id);
         }
         return redirect("coupon/list")->with('statusSuccess', "Bạn đã cập nhật thông tin phiếu giảm giá tên '$couponName' thành công!");

@@ -368,6 +368,6 @@ Route::middleware('auth', 'role')->group(function () {
 
     // COLOR
     Route::prefix("export")->controller(ExcelController::class)->group(function () {
-        Route::get("/order-list", "exportOrders")->name("export.order");
+        Route::post("/order-list", "exportOrders")->name("export.order");
     });
 });

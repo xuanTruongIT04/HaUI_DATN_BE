@@ -101,12 +101,12 @@ class OrderRepository extends BaseRepository
         $statusOrder = array_keys(Constant::STATUS_ORDER);
         $listStatusAble = [$statusOrder["1"], $statusOrder["2"]];
 
-        $startDateCompare = Carbon::parse($startDate)->startOfDay();
-        $endDateCompare = Carbon::parse($endDate)->endOfDay();
+        $startDateCompare = !is_null($startDate) ? Carbon::parse($startDate)->startOfDay() : null;
+        $endDateCompare = !is_null($endDate) ? Carbon::parse($endDate)->endOfDay() : null;
 
         return $this->model::with(["detailOrders.product"])
-            ->where("order_date", ">=",  $startDateCompare)
-            ->where("order_date", "<=",  $endDateCompare)
+            ->when(!empty($startDateCompare), fn ($q) => $q->where("order_date", ">=",  $startDateCompare))
+            ->when(!empty($endDateCompare), fn ($q) => $q->where("order_date", "<=",  $endDateCompare))
             ->whereIn("status", $listStatusAble)
             ->orderBy("status")
             ->get();

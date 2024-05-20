@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         $orderInDays = $this->productService->getProductSellInDay();
 
-        if ($request->input("start_date") && $request->input("end_date")) {
+        if ($request->input("start_date") || $request->input("end_date")) {
             $startDate = $request->input("start_date");
             $endDate = $request->input("end_date");
             $orderInDays = $this->productService->getProductByDate($startDate, $endDate);
@@ -79,29 +79,18 @@ class ProductController extends Controller
 
         $countProducts = 0;
         if (!empty($orderInDays)) {
-            foreach ($orderInDays as $itemOrderInDays) {
-                $detailOrder = $itemOrderInDays?->detailOrders;
-                if (!empty($detailOrder)) {
-                    foreach ($detailOrder as $itemDetailOrder) {
-                        $product = $itemDetailOrder?->product;
-                        if (!empty($product)) {
+            foreach ($orderInDays as $itemOrderInDay) {
+                $detailOrders = $itemOrderInDay->detailOrders;
+                if (!empty($detailOrders)) {
+                    foreach ($detailOrders as $itemDetailOrders) {
+                        $products = $itemDetailOrders->product;
+                        if (!empty($products)) {
                             $countProducts++;
                         }
                     }
                 }
             }
         }
-
-        if (!empty($request->input("export_excel")) && !empty($orderInDays)) {
-            $response = $this->productService->exportExcel($orderInDays);
-            if($response->getStatusCode() >= 200 && $response->getStatusCode() <= 299) {
-                Session::flash('statusSuccess', 'Xuất file excel thành công!');
-            }
-        } else if(empty($orderInDays)) {
-            Session::flash('statusFail', 'Xuất file excel thất bại, không tồn tại đơn hàng nào ');
-
-        }
-
 
         // Handle action with constaint
         $cntProductAboutToExpiry = $this->productService->countProductExpireds();
