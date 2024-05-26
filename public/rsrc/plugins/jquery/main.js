@@ -82,8 +82,8 @@ $(document).ready(function () {
             },
             error: function (error) {
                 $(".notifiExists").text("");
-                $(".notifiExists").text("Thông báo: Chưa có ảnh chính nào với sản phẩm có màu như trên!");
-                $(".notifiLoading").text("Thông báo: Chưa có ảnh phụ nào với sản phẩm có màu như trên")
+                $(".notifiExists").text("Thông báo: Chưa tồn tại ảnh chính nào với sản phẩm có màu như trên!");
+                $(".notifiLoading").text("Thông báo: Chưa tồn tại ảnh phụ nào với sản phẩm có màu như trên")
                 removeImage();
             },
         });

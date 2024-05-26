@@ -64,9 +64,9 @@ class OrderController extends Controller
         // Update super order
         $this->orderService->update($id, $dataUpdate);
         // Update order other
-        $orderName = $this->orderService->find($id)->name;
+        $customerName = $this->orderService->find($id)?->cart?->user->first_name;
 
-        return redirect("order/list")->with('statusSuccess', "Bạn đã cập nhật thông tin đơn hàng tên '$orderName' thành công!");
+        return redirect("order/list")->with('statusSuccess', "Bạn đã cập nhật thông tin đơn hàng của khách hàng có tên '$customerName' thành công!");
     }
 
     public function detail($id)

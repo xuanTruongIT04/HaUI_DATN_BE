@@ -161,13 +161,13 @@ class AdminController extends Controller
                 $this->adminService->update($id, $dataUpdate);
                 $this->adminService->delete($id);
 
-                return redirect("admin/list")->with("status", "Bạn đã xoá tạm thời thành viên tên {$fullname} thành công!");
+                return redirect("admin/list")->with("status", "Bạn đã vô hiệu hoá tạm thời thành viên tên {$fullname} thành công!");
             } else {
                 $admin->forceDelete();
-                return redirect("admin/list")->with("status", "Bạn đã xoá vĩnh viễn thành viên tên {$fullname} thành công!");
+                return redirect("admin/list")->with("status", "Bạn đã vô hiệu hoá vĩnh viễn thành viên tên {$fullname} thành công!");
             }
         } else {
-            return redirect("admin/list")->with("status", "Bạn không thể tự xoá chính mình ra khỏi hệ thống!");
+            return redirect("admin/list")->with("status", "Bạn không thể tự vô hiệu hoá chính mình ra khỏi hệ thống!");
         }
     }
 

@@ -75,7 +75,7 @@ class OrderController extends Controller
             $idUser = $user->id;
             $dataSubmitOrder = json_decode($request->getContent(), true);
             $idBill = $this->orderService->submitOrder($idUser, $dataSubmitOrder);
-            if($idBill) {
+            if ($idBill) {
                 $billData = $this->billService->getInfoFromBill($idBill);
                 //SEND MAIL HERE
                 dispatch(new SendOrderSuccessEmailJob($billData, $user));
@@ -123,4 +123,17 @@ class OrderController extends Controller
         }
     }
 
+    public function getListOrderByUser()
+    {
+        try {
+            $userId = Auth::guard('user')->id();
+            $listOrder = $this->orderService->getListOrderByUser($userId);
+            if (!empty($listOrder)) {
+                return $this->sendSuccessResponse($listOrder);
+            }
+            return $this->sendSuccessResponse(['info' => false]);
+        } catch (\Exception $e) {
+            return $this->sendErrorResponse(['error' => $e->getMessage()]);
+        }
+    }
 }

@@ -67,11 +67,11 @@ class User extends Authenticatable implements JWTSubject
     public function scopeSearch($query, $keyword, $perPage = 20, $where = array())
     {
         if (!empty($where)) {
-            $query = $query->where('first_name', 'like', '%' . $keyword . '%')
-                ->where($where)
-                ->orderByDesc('created_at');
+            $query = $query->where('first_name', 'like', '%' . '' . '%')
+                ->where($where);
         } else {
             $query = $query->where('first_name', 'like', '%' . $keyword . '%')
+                ->orderBy('status')
                 ->orderByDesc('created_at');
         }
         return $query;

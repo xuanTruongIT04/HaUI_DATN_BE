@@ -128,7 +128,7 @@ class AdminService
                         Admin::destroy($listChecked);
                         return redirect("admin/list")->with(
                             "status",
-                            "Bạn đã xoá tạm thời {$cntMember} thành viên thành công!"
+                            "Bạn đã vô hiệu hoá tạm thời {$cntMember} thành viên thành công!"
                         );
                     } else {
                         if ($act == "LICENSED") {
@@ -158,7 +158,7 @@ class AdminService
                                         ->forceDelete();
                                     return redirect("admin/list")->with(
                                         "status",
-                                        "Bạn đã xoá vĩnh viễn {$cntMember} thành viên thành công!"
+                                        "Bạn đã vô hiệu hoá vĩnh viễn {$cntMember} thành viên thành công!"
                                     );
                                 } else {
                                     if ($act == "RESTORE") {

@@ -157,6 +157,8 @@ Route::group(
             Route::get('/get-status', 'getStatus')->name("user.order.status");
             Route::get('/get-info', 'getInfoOrder')->name("user.order.info");
 
+            Route::get('/get-list-order', 'getListOrderByUser')->name("user.order.listOrder");
+
             Route::post('/submit-order', 'submitOrder')->name("user.order.submitOrder");
         });
 

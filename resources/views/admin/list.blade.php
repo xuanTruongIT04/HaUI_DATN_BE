@@ -120,7 +120,7 @@
                                                     <a href="{{ route('admin.delete', $admin->id) }}"
                                                         class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                         data-toggle="tooltip"
-                                                        onclick="return confirm('Bạn có chắc chắn muốn xoá tạm thời thành viên {{ $admin->name }}?')"
+                                                        onclick="return confirm('Bạn có chắc chắn muốn vô hiệu hoá tạm thời thành viên {{ $admin->name }}?')"
                                                         data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                                                 @endif
                                             </td>
@@ -136,7 +136,7 @@
                                                     <a href="{{ route('admin.delete', $admin->id) }}"
                                                         class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                         data-toggle="tooltip"
-                                                        onclick="return confirm('Bạn có chắc chắn muốn xoá vĩnh viễn thành viên {{ $admin->name }}?')"
+                                                        onclick="return confirm('Bạn có chắc chắn muốn vô hiệu hoá vĩnh viễn thành viên {{ $admin->name }}?')"
                                                         data-placement="top" title="Delete"><i
                                                             class="fa fa-trash"></i></a>
                                                 @endif

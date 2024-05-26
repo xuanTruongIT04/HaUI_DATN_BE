@@ -57,8 +57,8 @@ class ProductRepository extends BaseRepository
             ->get();
     }
 
-    public function getProductSellInDay()
-    {
+    // public function getProductSellInDay()
+    // {
         // $status = array_keys(Constant::STATUS);
         // $products = $this->model::selectRaw("`products`.*, '' as `detail`")->with([
         //     'images' => function ($query) use ($status) {
@@ -68,7 +68,7 @@ class ProductRepository extends BaseRepository
         // ])->where("status", $status[0])->orderByDesc("id")->get();
 
         // return $products;
-    }
+    // }
 
     public function getAllLatest()
     {

@@ -98,6 +98,10 @@ class OrderService
         return $this->orderRepository->countOrders($status);
     }
 
+    public function getListOrderByUser($userId) {
+        return $this->orderRepository->getListOrderByUser($userId);
+    }
+
     public function constraintAction(Request $request)
     {
         // List action

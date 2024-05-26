@@ -81,13 +81,21 @@ class OrderRepository extends BaseRepository
         return $this->model::where("cart_id", $cartId)->where("status", $statusOrder[0])->latest()->first();
     }
 
+    public function getListOrderByUser($userId)
+    {
+        return $this->model::with('detailOrders.product')
+            ->whereHas('detailOrders.product')
+            ->get()
+            ->groupBy(function ($order) {
+                return $order->detailOrders;
+            });
+    }
+
     public function getListProductSellInDay()
     {
-        $today = \Carbon\Carbon::now();
+        $today = Carbon::now();
         $statusOrder = array_keys(Constant::STATUS_ORDER);
         $listStatusAble = [$statusOrder["1"], $statusOrder["2"]];
-
-        // $listStatusAble = [$statusOrder["0"]];
 
         return $this->model::with(["detailOrders.product"])
             ->whereDate("order_date", $today)
