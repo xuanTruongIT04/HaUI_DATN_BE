@@ -53,7 +53,6 @@ class AuthController extends Controller
         } else {
             return response()->json(["status" => false]);
         }
-
     }
 
     public function login(LoginRequest $request)
@@ -63,7 +62,7 @@ class AuthController extends Controller
         if (!$token) {
             return response()->json([
                 'errors' => [
-                    'password' => ['Wrong password, please try again!']
+                    'password' => ['Sai mật khẩu, vui lòng thử lại!']
                 ]
             ], 401);
         }
@@ -73,13 +72,12 @@ class AuthController extends Controller
         if (!$user || $user->status !== $statusUser[0]) {
             return response()->json([
                 'errors' => [
-                    'account' => ['User not authenticated or found, please try again!']
+                    'account' => ['Người dùng chưa được xác thực hoặc tìm thấy, vui lòng thử lại!']
                 ]
             ], 401);
         }
 
         return $this->respondWithToken($token);
-
     }
 
     /**
@@ -137,7 +135,7 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
 
         if (!$user) {
-            return $this->sendErrorResponse('User not found');
+            return $this->sendErrorResponse('Không tìm thấy người dùng');
         }
 
         $token = Str::random(60);
@@ -149,8 +147,7 @@ class AuthController extends Controller
 
         $resetUrl = env("APP_FRONT_URL") . 'reset-password/' . $token;
         dispatch(new SendResetPasswordJob($email, $resetUrl));
-        return $this->sendSuccessResponse('Password reset email has been sent to your email,
-         please check within 30 minutes to change your password');
+        return $this->sendSuccessResponse('Email đặt lại mật khẩu đã được gửi tới email của bạn, vui lòng kiểm tra trong vòng 30 phút để đổi mật khẩu!');
     }
 
     public function resetPassword(ResetPasswordRequest $request)
@@ -159,7 +156,7 @@ class AuthController extends Controller
         $token = $request->token;
         $resetRecord = PasswordReset::where('token', $token)->first();
         if (!$resetRecord)
-            return $this->sendErrorResponse('Invalid token');
+            return $this->sendErrorResponse('Mã không hợp lệ');
 
         $hashedPassword = Hash::make($password);
 
@@ -169,7 +166,7 @@ class AuthController extends Controller
         PasswordReset::where('token', $token)
             ->delete();
 
-        return $this->sendSuccessResponse('Password reset successful');
+        return $this->sendSuccessResponse('Đặt lại mật khẩu thành công!');
     }
 
     public function checkToken(Request $request)
@@ -199,7 +196,7 @@ class AuthController extends Controller
 
         // Check if the current password matches the user's password
         if (!Hash::check($request->password, $user->password)) {
-            return response()->json(['success' => false, 'status' => 401, 'title' => "Current password is incorrect"]);
+            return response()->json(['success' => false, 'status' => 401, 'title' => "Mật khẩu hiện tại không đúng!"]);
         }
 
         // Update the user's password
@@ -228,8 +225,7 @@ class AuthController extends Controller
             $idUser = $user->id;
         $resetUrl = env("APP_FRONT_URL") . 'verify-account/' . $idUser . "/" . $token;
         dispatch(new VerificationAccountJob($email, $resetUrl));
-        return $this->sendSuccessResponse('Link verification account has been sent to your email,
-         please check within 30 minutes to verification');
+        return $this->sendSuccessResponse('Link xác minh tài khoản đã được gửi tới email của bạn, vui lòng kiểm tra trong vòng 30 phút để xác minh!');
     }
 
     public function verificationGet(Request $request)
@@ -257,6 +253,4 @@ class AuthController extends Controller
             return $this->sendErrorResponse(['error' => $e->getMessage()]);
         }
     }
-
-
 }

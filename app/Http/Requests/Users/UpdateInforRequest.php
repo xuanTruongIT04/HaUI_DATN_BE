@@ -26,7 +26,12 @@ class UpdateInforRequest extends FormRequest
         return [
             'first_name' => ['nullable', 'string', 'min:2', 'max:255'],
             'last_name' => ['nullable', 'string', 'min:4', 'max:255'],
-            'phone' => ['nullable', 'string', 'min:10', 'max:255'],
+            // 'phone' => ['nullable', 'string', 'min:10', 'max:255'], // Old validate data
+            'phone' => ['nullable', 'string', 'regex:/^(032|033|034|035|036|037|038|039|
+                                                        096|097|098|086|083|084|085|081|
+                                                        082|088|091|094|070|079|077|076|
+                                                        078|090|093|089|056|058|092|059|
+                                                        099)[0-9]{7}$/'],  // Update new validate data when testing
             'fax' => ['nullable', 'string', 'min:10', 'max:255'],
         ];
     }
@@ -34,19 +39,19 @@ class UpdateInforRequest extends FormRequest
     public function messages()
     {
         return [
-            'string' => ':attribute must be a string.',
-            'required' => ':attribute is required.',
+            'string' => ':attribute phải là một chuỗi.',
+            'required' => ':attribute là bắt buộc.',
             "max" => [
-                "number" => ":attribute no greater than :max.",
-                "file" => ":attribute is not more than :max KB.",
-                "string" => ":attribute is not more than :max characters.",
-                "array" => ":attribute is not more than :max item.",
+                "number" => ":attribute không lớn hơn :max.",
+                "file" => ":attribute không lớn hơn :max KB.",
+                "string" => ":attribute không lớn hơn :max ký tự.",
+                "array" => ":attribute không lớn hơn :max mục.",
             ],
             'min' => [
-                'numeric' => ':attribute must be at least :min.',
-                'file' => ':attribute must be at least :min KB.',
-                'string' => ':attribute must be at least :min characters.',
-                'array' => ':attribute must have at least :min items.',
+                'numeric' => ':attribute phải ít nhất :min.',
+                'file' => ':attribute phải ít nhất :min KB.',
+                'string' => ':attribute phải ít nhất :min ký tự.',
+                'array' => ':attribute phải có ít nhất :min mục.',
             ],
         ];
     }

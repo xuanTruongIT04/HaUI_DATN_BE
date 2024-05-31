@@ -31,8 +31,11 @@ class UserController extends Controller
                 return $value !== null;
             });
 
-            $this->userService->update($id, $update);
-            return $this->sendSuccessResponse("Bạn đã cập nhật thông tin cá nhân thành công!");
+            $isUpdate = $this->userService->update($id, $update);
+            if ($isUpdate) {
+                return $this->sendSuccessResponse("Bạn đã cập nhật thông tin cá nhân thành công!");
+            }
+            return $this->sendFailResponse("Bạn đã cập nhật thông tin cá nhân thất bại, xin vui lòng thử lại");
         } catch (\Exception $e) {
             return $this->sendFailResponse("Bạn đã cập nhật thông tin cá nhân thất bại, xin vui lòng thử lại");
         }
@@ -51,7 +54,6 @@ class UserController extends Controller
             } else {
                 return $this->sendFailResponse("Bạn chưa đăng nhập");
             }
-
         } catch (\Exception $e) {
             return $this->sendFailResponse("Bạn đã kiểm tra thông tin cá nhân thất bại, xin vui lòng thử lại");
         }
@@ -96,5 +98,4 @@ class UserController extends Controller
             return response()->json(['success' => false]);
         }
     }
-
 }

@@ -84,13 +84,18 @@ class OrderRepository extends BaseRepository
     public function getListOrderByUser($userId)
     {
         return $this->model::with('detailOrders.product')
-            ->whereHas('detailOrders.product')
+            ->whereHas('cart', function ($query) use ($userId) {
+                return $query->where('user_id', $userId);
+            })
             ->get()
             ->groupBy(function ($order) {
                 return $order->detailOrders;
-            });
+            })
+            ->map(function ($item) {
+                return $item->toArray();
+            })
+            ->toArray();
     }
-
     public function getListProductSellInDay()
     {
         $today = Carbon::now();

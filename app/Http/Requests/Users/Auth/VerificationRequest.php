@@ -31,14 +31,14 @@ class VerificationRequest extends FormRequest
     public function messages()
     {
         return [
-            "string" => ":attribute must be a character string.",
-            "required" => ":attribute is not blank.",
-            "exists" => "The :attribute does not exist, please register an :attribute!",
+            "string" => ":attribute phải là chuỗi ký tự.",
+            "required" => ":attribute không được để trống.",
+            "exists" => ":attribute không tồn tại, vui lòng đăng ký :attribute!",
             "max" => [
-                "number" => ":attribute no greater than :max.",
-                "file" => ":attribute is not more than :max KB.",
-                "string" => ":attribute is not more than :max characters.",
-                "array" => ":attribute is not more than :max item.",
+                "number" => ":attribute không được lớn hơn :max.",
+                "file" => ":attribute không được lớn hơn :max KB.",
+                "string" => ":attribute không được lớn hơn :max ký tự.",
+                "array" => ":attribute không được lớn hơn :max phần tử.",
             ],
         ];
     }
@@ -49,5 +49,4 @@ class VerificationRequest extends FormRequest
             'email' => "Email",
         ];
     }
-
 }

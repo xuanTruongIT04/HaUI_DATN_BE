@@ -14,6 +14,7 @@ use App\Services\CartService;
 use App\Services\BillService;
 use App\Helpers\Constant;
 use App\Models\Cart;
+use Hamcrest\Arrays\IsArray;
 
 class OrderController extends Controller
 {
@@ -128,6 +129,7 @@ class OrderController extends Controller
         try {
             $userId = Auth::guard('user')->id();
             $listOrder = $this->orderService->getListOrderByUser($userId);
+
             if (!empty($listOrder)) {
                 return $this->sendSuccessResponse($listOrder);
             }

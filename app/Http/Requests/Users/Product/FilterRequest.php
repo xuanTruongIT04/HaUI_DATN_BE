@@ -37,23 +37,24 @@ class FilterRequest extends FormRequest
     public function messages()
     {
         return [
-            "numeric" => ':attribute must be a number.',
-            "string" => ":attribute must be a character string.",
-            'array' => ':attribute must be an array.',
+            "numeric" => ':attribute phải là một số.',
+            "string" => ":attribute phải là chuỗi ký tự.",
+            'array' => ':attribute phải là một mảng.',
             "max" => [
-                "number" => ":attribute no greater than :max.",
-                "file" => ":attribute is not more than :max KB.",
-                "string" => ":attribute is not more than :max characters.",
-                "array" => ":attribute is not more than :max item.",
+                "number" => ":attribute không được lớn hơn :max.",
+                "file" => ":attribute không được lớn hơn :max KB.",
+                "string" => ":attribute không được lớn hơn :max ký tự.",
+                "array" => ":attribute không được lớn hơn :max phần tử.",
             ],
             "min" => [
-                "numeric" => ":attribute is not better than:min.",
-                "file" => ":attribute is not less than :min KB.",
-                "string" => ":attribute is not less than :min characters.",
-                "array" => ":attribute must have at least :items.",
+                "numeric" => ":attribute không được nhỏ hơn :min.",
+                "file" => ":attribute không được nhỏ hơn :min KB.",
+                "string" => ":attribute không được nhỏ hơn :min ký tự.",
+                "array" => ":attribute phải có ít nhất :min phần tử.",
             ],
         ];
     }
+
 
     public function attributes()
     {

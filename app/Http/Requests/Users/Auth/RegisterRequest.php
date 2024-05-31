@@ -33,24 +33,23 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            "string" => ":attribute must be a character string.",
-            "required" => ":attribute is not blank.",
-            "doesntExist" => ":attribute already exists, please choose another :attribute!",
-            "unique" => ":attribute already exists, please enter another email.",
-            'email' => "Email address must be an email address in a valid format!",
+            "string" => ":attribute phải là chuỗi ký tự.",
+            "required" => ":attribute không được để trống.",
+            "doesntExist" => ":attribute đã tồn tại, vui lòng chọn :attribute khác!",
+            "unique" => ":attribute đã tồn tại, vui lòng nhập :attribute khác.",
+            'email' => "Địa chỉ email phải là địa chỉ email hợp lệ!",
             "max" => [
-                "number" => ":attribute no greater than :max.",
-                "file" => ":attribute is not more than :max KB.",
-                "string" => ":attribute is not more than :max characters.",
-                "array" => ":attribute is not more than :max item.",
+                "number" => ":attribute không được lớn hơn :max.",
+                "file" => ":attribute không được lớn hơn :max KB.",
+                "string" => ":attribute không được lớn hơn :max ký tự.",
+                "array" => ":attribute không được lớn hơn :max phần tử.",
             ],
             "min" => [
-                "numeric" => ":attribute is not better than:min.",
-                "file" => ":attribute is not less than :min KB.",
-                "string" => ":attribute is not less than :min characters.",
-                "array" => ":attribute must have at least :items.",
+                "numeric" => ":attribute không được nhỏ hơn :min.",
+                "file" => ":attribute không được nhỏ hơn :min KB.",
+                "string" => ":attribute không được nhỏ hơn :min ký tự.",
+                "array" => ":attribute phải có ít nhất :min phần tử.",
             ],
-
         ];
     }
 
@@ -62,5 +61,4 @@ class RegisterRequest extends FormRequest
             'email' => "Email address",
         ];
     }
-
 }

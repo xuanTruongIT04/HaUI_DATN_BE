@@ -32,22 +32,21 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            "string" => ":attribute must be a character string.",
-            "required" => ":attribute is not blank.",
-            "exists" => "The username does not exist, please register an account!",
+            "string" => ":attribute phải là chuỗi ký tự.",
+            "required" => ":attribute không được để trống.",
+            "exists" => "Tên người dùng không tồn tại, vui lòng đăng ký tài khoản!",
             "max" => [
-                "number" => ":attribute no greater than :max.",
-                "file" => ":attribute is not more than :max KB.",
-                "string" => ":attribute is not more than :max characters.",
-                "array" => ":attribute is not more than :max item.",
+                "number" => ":attribute không được lớn hơn :max.",
+                "file" => ":attribute không được lớn hơn :max KB.",
+                "string" => ":attribute không được lớn hơn :max ký tự.",
+                "array" => ":attribute không được lớn hơn :max phần tử.",
             ],
             "min" => [
-                "numeric" => ":attribute is not better than:min.",
-                "file" => ":attribute is not less than :min KB.",
-                "string" => ":attribute is not less than :min characters.",
-                "array" => ":attribute must have at least :items.",
+                "numeric" => ":attribute không được nhỏ hơn :min.",
+                "file" => ":attribute không được nhỏ hơn :min KB.",
+                "string" => ":attribute không được nhỏ hơn :min ký tự.",
+                "array" => ":attribute phải có ít nhất :min phần tử.",
             ],
-
         ];
     }
 
@@ -58,5 +57,4 @@ class LoginRequest extends FormRequest
             'password' => "Password",
         ];
     }
-
 }
