@@ -134,7 +134,6 @@ class OrderService
 
     public function action(Request $requests)
     {
-
         $listChecked = $requests->input("listCheck");
         $act = $requests->input('act');
         $listStatus = array_keys(Constant::STATUS_ORDER);
@@ -179,6 +178,4 @@ class OrderService
             return redirect("order/list")->with("status", "Bạn chưa chọn hành động nào để thực hiện!");
         }
     }
-
-
 }

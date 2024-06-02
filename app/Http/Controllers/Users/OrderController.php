@@ -14,17 +14,19 @@ use App\Services\CartService;
 use App\Services\BillService;
 use App\Helpers\Constant;
 use App\Models\Cart;
+use App\Services\UserService;
 use Hamcrest\Arrays\IsArray;
 
 class OrderController extends Controller
 {
-    protected $orderService, $cartService, $billService;
+    protected $orderService, $cartService, $billService, $userService;
 
-    public function __construct(OrderService $orderService, CartService $cartService, BillService $billService)
+    public function __construct(OrderService $orderService, CartService $cartService, BillService $billService, UserService $userService)
     {
         $this->orderService = $orderService;
         $this->cartService = $cartService;
         $this->billService = $billService;
+        $this->userService = $userService;
     }
 
     public function add(Request $request)
@@ -134,6 +136,39 @@ class OrderController extends Controller
                 return $this->sendSuccessResponse($listOrder);
             }
             return $this->sendSuccessResponse(['info' => false]);
+        } catch (\Exception $e) {
+            return $this->sendErrorResponse(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+
+            $status = $request->input('status');
+            $paymentMethod = $request->input('payment_method');
+            $idUser = Auth::guard('user')->id();
+            $user = $this->userService->find($idUser);
+            $cntCancelled = $user->cnt_cancel;
+
+            $data['status'] = $status;
+            if (!empty($paymentMethod)) {
+                $data['payment_method'] = $paymentMethod;
+                $isUpdate = $this->orderService->update($id, $data);
+            } else {
+                if ($cntCancelled < 5) {
+                    $dataUpdateUser['cnt_cancel'] = $cntCancelled + 1;
+
+                    $isUpdate = $this->orderService->update($id, $data);
+                    $isUpdateUser = $this->userService->update($idUser, $dataUpdateUser);
+
+                    $isUpdate = ($isUpdate && $isUpdateUser) ? true : false;
+                } else {
+                    return $this->sendSuccessResponse(['error' => "Huỷ đơn thấti bại do huỷ nhiều hơn 5 lần 1 tháng. Hãy tìm hiểu thêm thông tin trang web với trợ lý ảo nằm ở góc phải dưới màn hình!"]);
+                }
+            }
+
+            return $this->sendSuccessResponse(['update' => $isUpdate]);
         } catch (\Exception $e) {
             return $this->sendErrorResponse(['error' => $e->getMessage()]);
         }

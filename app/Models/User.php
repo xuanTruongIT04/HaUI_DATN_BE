@@ -43,6 +43,7 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'fax',
         'status',
+        'cnt_cancel',
     ];
 
     /**

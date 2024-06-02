@@ -82,6 +82,6 @@ if (!function_exists("getNewOrder")) {
     {
         $listStatus = array_keys(Constant::STATUS_ORDER);
         $listStatusNow = [$listStatus[0], $listStatus[1], $listStatus[2]];
-        return Order::with("cart.user")->whereIn("status", $listStatusNow)->orderByDesc("status")->latest('created_at')->take(5)->get();
+        return Order::with("cart.user")->whereIn("status", $listStatusNow)->latest('created_at')->take(5)->get();
     }
 }
